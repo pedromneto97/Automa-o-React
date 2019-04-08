@@ -1,2 +1,2 @@
-# Automação-React
-Interface de um sistema de automação residencial utilizando react
+# Domotics React
+Residential automation system interface using react
