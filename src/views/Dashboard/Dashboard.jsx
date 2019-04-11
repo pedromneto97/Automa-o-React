@@ -27,25 +27,27 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-
+// Residence module
 import Residence from "components/Residences/Residence.jsx";
+// Crossbar
+import { Connection } from "autobahn";
 
-import {bugs, residences, server, website} from "variables/general.jsx";
+import { bugs, server, website } from "variables/general.jsx";
 
-import {completedTasksChart, dailySalesChart, emailsSubscriptionChart} from "variables/charts.jsx";
+import { completedTasksChart, dailySalesChart, emailsSubscriptionChart } from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 function ResidenceList(props) {
-    const {
-        residences,
-        classes
-    } = props;
-    return (residences.map((residence) =>
-        <GridItem xs={12} sm={6} md={3}>
-            <Residence classes={classes} residence={residence}/>
-        </GridItem>
-    ));
+  const {
+    residences,
+    classes
+  } = props;
+  return (residences.map((residence) =>
+    <GridItem xs={12} sm={6} md={3} key={residence._id.$oid}>
+      <Residence classes={classes} residence={residence}/>
+    </GridItem>
+  ));
 }
 
 class Dashboard extends React.Component {
