@@ -29,8 +29,6 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 // Residence module
 import Residence from "components/Residences/Residence.jsx";
-// Crossbar
-import {Connection} from "autobahn";
 
 import {bugs, server, website} from "variables/general.jsx";
 
@@ -53,31 +51,10 @@ function ResidenceList(props) {
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        let ws_uri;
-        if (document.location.hostname === "localhost") {
-            ws_uri = {
-                transports: [
-                    {
-                        "type": "websocket",
-                        "url": "ws://crossbar-pedro.herokuapp.com/ws"
-                    }
-                ]
-            };
-        } else {
-            ws_uri = {
-                url: (document.location.protocol === "http:" ? "ws:" : "wss:") + "//" + document.location.host + "/ws"
-            };
-        }
-        ws_uri["realm"] = "realm1";
         this.state = {
             residences: [],
-            connection: new Connection(ws_uri),
             interval: null
         };
-        this.state.connection.onopen = function (session, details) {
-            console.info("Aberto!");
-        };
-        this.state.connection.open();
         this.getResidences = this.getResidences.bind(this);
     }
 
@@ -91,12 +68,11 @@ class Dashboard extends React.Component {
         if (this.state.interval !== null) {
             clearInterval(this.state.interval);
         }
-        this.state.connection.close();
     }
 
     getResidences() {
-        if (this.state.connection.session) {
-            this.state.connection.session.call("com.herokuapp.crossbar-pedro.user.residences", ["5c7f1130dd27452be8f16adc"])
+        if (this.props.session) {
+            this.props.session.call("com.herokuapp.crossbar-pedro.user.residences", ["5c7f1130dd27452be8f16adc"])
                 .then(function (res) {
                     this.setState({
                         residences: JSON.parse(res)
