@@ -15,37 +15,61 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import routes from "routes.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
+// Crossbar
+import {Connection} from "autobahn";
 
 import image from "assets/img/caecomp.jpg";
 import logo from "assets/img/reactlogo.png";
 
-const switchRoutes = (
-    <Switch>
-        {routes.map((prop, key) => {
-            if (prop.layout === "/admin") {
-                return (
-                    <Route
-                        path={prop.layout + prop.path}
-                        component={prop.component}
-                        key={key}
-                    />
-                );
-            }
-        })}
-    </Switch>
-);
-
 class Dashboard extends React.Component {
+
     constructor(props) {
         super(props);
+        let ws_uri;
+        if (document.location.hostname === "localhost") {
+            ws_uri = {
+                transports: [
+                    {
+                        "type": "websocket",
+                        "url": "ws://crossbar-pedro.herokuapp.com/ws"
+                    }
+                ]
+            };
+        } else {
+            ws_uri = {
+                url: (document.location.protocol === "http:" ? "ws:" : "wss:") + "//" + document.location.host + "/ws"
+            };
+        }
+        ws_uri["realm"] = "realm1";
         this.state = {
             image: image,
             color: "blue",
             hasImage: true,
             fixedClasses: "dropdown show",
-            mobileOpen: false
+            mobileOpen: false,
+            connection: new Connection(ws_uri)
         };
+        this.state.connection.onopen = function (session, details) {
+            console.info("Aberto");
+        };
+        this.state.connection.open();
     }
+
+    switchRoutes = () => (
+        <Switch>
+            {routes.map((prop, key) => {
+                if (prop.layout === "/admin") {
+                    return (
+                        <Route
+                            path={prop.layout + prop.path}
+                            render={(props) => <prop.component {...props} session={this.state.connection.session}/>}
+                            key={key}
+                        />
+                    );
+                }
+            })}
+        </Switch>
+    );
 
     handleDrawerToggle = () => {
         this.setState({mobileOpen: !this.state.mobileOpen});
@@ -79,6 +103,7 @@ class Dashboard extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.resizeFunction);
+        this.state.connection.close();
     }
 
     render() {
@@ -104,10 +129,10 @@ class Dashboard extends React.Component {
                     {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
                     {this.getRoute() ? (
                         <div className={classes.content}>
-                            <div className={classes.container}>{switchRoutes}</div>
+                            <div className={classes.container}>{this.switchRoutes()}</div>
                         </div>
                     ) : (
-                        <div className={classes.map}>{switchRoutes}</div>
+                        <div className={classes.map}>{this.switchRoutes()}</div>
                     )}
                     {this.getRoute() ? <Footer/> : null}
                 </div>
