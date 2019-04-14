@@ -28,7 +28,7 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 // Residence module
-import Residence from "components/Residences/Residence.jsx";
+import Residence from "components/Residence/Residence.jsx";
 
 import {bugs, server, website} from "variables/general.jsx";
 
