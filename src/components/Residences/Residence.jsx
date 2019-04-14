@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 
@@ -33,7 +33,7 @@ class Residence extends React.Component {
             <LocationCity/>
             {residence.address.street}, {residence.address.number}, {residence.address.district} {residence.address.postal_code.city ? "- " + residence.address.postal_code.city : ""}
           </div>
-          <Link to={"/admin/" + residence.alias}>
+            <Link to={"/admin/residence/" + residence.alias}>
             <Button color="info" size="sm">More info</Button>
           </Link>
         </CardFooter>
