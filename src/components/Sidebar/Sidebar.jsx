@@ -25,52 +25,49 @@ const Sidebar = ({ ...props }) => {
   let links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
-        if (!prop.invisible) {
-          var activePro = " ";
-          var listItemClasses;
-          if (prop.path === "/upgrade-to-pro") {
-            activePro = classes.activePro + " ";
-            listItemClasses = classNames({
-              [" " + classes[color]]: true
-            });
-          } else {
-            listItemClasses = classNames({
-              [" " + classes[color]]: activeRoute(prop.layout + prop.path)
-            });
-          }
-          const whiteFontClasses = classNames({
-            [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
+        if (prop.invisible) return null;
+        let activePro = " ";
+        let listItemClasses;
+        if (prop.path === "/upgrade-to-pro") {
+          activePro = classes.activePro + " ";
+          listItemClasses = classNames({
+            [" " + classes[color]]: true
           });
-          return (
-            <NavLink
-              to={prop.layout + prop.path}
-              className={activePro + classes.item}
-              activeClassName="active"
-              key={key}
-            >
-              <ListItem button className={classes.itemLink + listItemClasses}>
-                {typeof prop.icon === "string" ? (
-                  <Icon
-                    className={classNames(classes.itemIcon, whiteFontClasses)}
-                  >
-                    {prop.icon}
-                  </Icon>
-                ) : (
-                  <prop.icon
-                    className={classNames(classes.itemIcon, whiteFontClasses)}
-                  />
-                )}
-                <ListItemText
-                  primary={prop.name}
-                  className={classNames(classes.itemText, whiteFontClasses)}
-                  disableTypography={true}
-                />
-              </ListItem>
-            </NavLink>
-          );
         } else {
-          return null;
+          listItemClasses = classNames({
+            [" " + classes[color]]: activeRoute(prop.layout + prop.path)
+          });
         }
+        const whiteFontClasses = classNames({
+          [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
+        });
+        return (
+          <NavLink
+            to={prop.layout + prop.path}
+            className={activePro + classes.item}
+            activeClassName="active"
+            key={key}
+          >
+            <ListItem button className={classes.itemLink + listItemClasses}>
+              {typeof prop.icon === "string" ? (
+                <Icon
+                  className={classNames(classes.itemIcon, whiteFontClasses)}
+                >
+                  {prop.icon}
+                </Icon>
+              ) : (
+                <prop.icon
+                  className={classNames(classes.itemIcon, whiteFontClasses)}
+                />
+              )}
+              <ListItemText
+                primary={prop.name}
+                className={classNames(classes.itemText, whiteFontClasses)}
+                disableTypography={true}
+              />
+            </ListItem>
+          </NavLink>
+        );
       })}
     </List>
   );
