@@ -37,7 +37,8 @@ class Scene extends React.Component {
 
 Scene.propTypes = {
   classes: PropTypes.object.isRequired,
-  scene: PropTypes.object.isRequired
+  scene: PropTypes.object.isRequired,
+  session: PropTypes.object
 };
 
 export default Scene;

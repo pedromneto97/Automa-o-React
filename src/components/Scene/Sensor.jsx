@@ -51,7 +51,8 @@ class Sensor extends React.Component {
 
 Sensor.propTypes = {
   classes: PropTypes.object.isRequired,
-  scene: PropTypes.object.isRequired
+  scene: PropTypes.object.isRequired,
+  session: PropTypes.object
 };
 
 export default Sensor;
