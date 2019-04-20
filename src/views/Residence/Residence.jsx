@@ -55,6 +55,7 @@ class Residence extends React.Component {
                     this.setState({
                         residence: res ? res : {rooms: []}
                     });
+                  this.props.setResidence(this.state.residence);
                 }.bind(this))
                 .catch(function (error) {
                     console.error(error);
