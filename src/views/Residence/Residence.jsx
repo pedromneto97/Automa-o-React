@@ -29,7 +29,7 @@ class Residence extends React.Component {
             residence: {
                 rooms: []
             },
-            alias: props.match.params.alias,
+          residence_alias: props.match.params.residence_alias,
             interval: null
         };
         this.getRooms = this.getRooms.bind(this);
@@ -49,7 +49,7 @@ class Residence extends React.Component {
 
     getRooms() {
         if (this.props.session) {
-            this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.alias])
+          this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.residence_alias])
                 .then(function (res) {
                     res = JSON.parse(res);
                     this.setState({

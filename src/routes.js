@@ -29,14 +29,14 @@ const dashboardRoutes = [
         invisible: false
     },
     {
-        path: "/residence/:alias",
+        path: "/residence/:residence_alias",
         name: "Residence",
         component: Residence,
         layout: "/admin",
         invisible: true
     },
     {
-        path: "/room/:alias",
+        path: "residence/:residence_alias/:room_alias",
         name: "Room",
         component: Room,
         layout: "/admin",
