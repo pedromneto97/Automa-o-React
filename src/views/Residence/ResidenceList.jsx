@@ -39,10 +39,93 @@ const styles = {
   }
 };
 
-class TableList extends React.Component {
+function Residence(props) {
+  const { residence } = props;
+  if (residence !== null) {
+    return (<div>
+      <p>
+        <b>Name:</b> {residence.name}
+      </p>
+      <p>
+        <b>Alias:</b> {residence.alias}
+      </p>
+      <p>
+        <b>Type:</b> {residence.type.type}
+      </p>
+      <p>
+        <b>Address:</b> {residence.address.street}, {residence.address.number} {residence.address.complement ? "," + residence.address.complement : null} - {residence.address.district}
+      </p>
+      <p>
+        <b>Postal Code:</b> {residence.address.postal_code.postal_code}
+      </p>
+      <p>
+        <b>City:</b> {residence.address.postal_code.city}
+      </p>
+      <p>
+        <b>Province:</b> {residence.address.postal_code.province}
+      </p>
+      <p>
+        <b>Country:</b> {residence.address.postal_code.country}
+      </p>
+    </div>);
+  }
+  return null;
+}
+
+function rooms_table(rooms) {
+  let r = [];
+  console.log(rooms);
+  rooms.map((prop) => {
+    r.push([prop.name, prop.alias, prop.icon, prop.type.type, prop.scenes.length]);
+  });
+  return r;
+}
+
+class ResidenceList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      residence: null,
+      alias: props.match.params.alias,
+      interval: null
+    };
   }
+
+  componentWillMount(): void {
+    if (!this.getResidence()) {
+      this.setState({
+        interval: setInterval(this.getResidence, 100)
+      });
+    }
+  }
+
+  componentWillUnmount(): void {
+    if (this.state.interval !== null) {
+      clearInterval(this.state.interval);
+    }
+  }
+
+  getResidence = () => {
+    if (this.props.session) {
+      this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.alias])
+        .then(function(res) {
+          res = JSON.parse(res);
+          this.setState({
+            residence: res ? res : null
+          });
+          console.log(this.state.residence);
+        }.bind(this))
+        .catch(function(error) {
+          console.error(error);
+        });
+      clearInterval(this.state.interval);
+      this.setState({
+        interval: null
+      });
+      return true;
+    }
+    return false;
+  };
 
   render() {
     const { classes } = this.props;
@@ -54,43 +137,22 @@ class TableList extends React.Component {
               <h4 className={classes.cardTitleWhite}>Residence Info</h4>
             </CardHeader>
             <CardBody>
+              <Residence residence={this.state.residence}/>
             </CardBody>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={6}>
-          <Card plain>
-            <CardHeader plain color="primary">
+          <Card>
+            <CardHeader color="primary">
               <h4 className={classes.cardTitleWhite}>
-                Table on Plain Background
+                Residence Rooms
               </h4>
-              <p className={classes.cardCategoryWhite}>
-                Here is a subtitle for this table
-              </p>
             </CardHeader>
             <CardBody>
               <Table
                 tableHeaderColor="primary"
-                tableHead={["ID", "Name", "Country", "City", "Salary"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                  ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                  ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                  [
-                    "4",
-                    "Philip Chaney",
-                    "$38,735",
-                    "Korea, South",
-                    "Overland Park"
-                  ],
-                  [
-                    "5",
-                    "Doris Greene",
-                    "$63,542",
-                    "Malawi",
-                    "Feldkirchen in Kärnten"
-                  ],
-                  ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]
-                ]}
+                tableHead={["Name", "Alias", "Icon", "Type", "Scenes Items"]}
+                tableData={this.state.residence ? rooms_table(this.state.residence.rooms) : []}
               />
             </CardBody>
           </Card>
@@ -100,4 +162,4 @@ class TableList extends React.Component {
   };
 }
 
-export default withStyles(styles)(TableList);
+export default withStyles(styles)(ResidenceList);
