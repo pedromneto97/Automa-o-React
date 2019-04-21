@@ -1,17 +1,24 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 
 import Icon from "@material-ui/core/Icon";
 import LocationCity from "@material-ui/icons/LocationCity";
+import Settings from "@material-ui/icons/Settings";
 
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
+import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import Button from "components/CustomButtons/Button.jsx";
+import Tooltip from "@material-ui/core/Tooltip";
+
+import withStyles from "@material-ui/core/styles/withStyles";
+import tasksStyle from "assets/jss/material-dashboard-react/components/tasksStyle.jsx";
+
 
 class Residence extends React.Component {
   render() {
@@ -21,21 +28,32 @@ class Residence extends React.Component {
     } = this.props;
     return (
       <Card>
-        <CardHeader color="success" stats icon>
+        <CardHeader color="info" stats icon>
           <CardIcon color="info">
             <Icon>{residence.icon ? residence.icon : residence.type.icon}</Icon>
           </CardIcon>
           <p className={classes.cardCategory}>{residence.type.type}</p>
-          <h3 className={classes.cardTitle}>{residence.name}</h3>
+          <h4 className={classes.cardTitle}>{residence.name}</h4>
         </CardHeader>
-        <CardFooter stats>
+        <CardBody>
+          <Link to={"/admin/residence/" + residence.alias}>
+            <Button color="info" size="sm">More info</Button>
+          </Link>
+          <Link to={"/admin/residence/edit/" + residence.alias}>
+            <Tooltip
+              id="tooltip-top"
+              title="Edit Residence"
+              placement="top"
+              classes={{ tooltip: classes.tooltip }}>
+              <Button justIcon round color="secondary" size='sm' className='pull-right'><Settings/></Button>
+            </Tooltip>
+          </Link>
+        </CardBody>
+        <CardFooter chart>
           <div className={classes.stats}>
             <LocationCity/>
             {residence.address.street}, {residence.address.number}, {residence.address.district} {residence.address.postal_code.city ? "- " + residence.address.postal_code.city : ""}
           </div>
-            <Link to={"/admin/residence/" + residence.alias}>
-            <Button color="info" size="sm">More info</Button>
-          </Link>
         </CardFooter>
       </Card>
     );
@@ -47,4 +65,4 @@ Residence.propTypes = {
   residence: PropTypes.object.isRequired
 };
 
-export default Residence;
+export default withStyles(tasksStyle)(Residence);
