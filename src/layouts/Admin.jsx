@@ -51,11 +51,13 @@ class Dashboard extends React.Component {
       fixedClasses: "dropdown show",
       mobileOpen: false,
       connection: new Connection(ws_uri),
+      session: null,
       routes: routes
     };
     this.state.connection.onopen = function(session, details) {
       console.info("Aberto");
-    };
+      this.setState({ session: session });
+    }.bind(this);
     this.state.connection.open();
   }
 
@@ -92,7 +94,7 @@ class Dashboard extends React.Component {
           return (
             <Route
               path={prop.layout + prop.path}
-              render={(props) => <prop.component {...props} session={this.state.connection.session}
+              render={(props) => <prop.component {...props} session={this.state.session}
                                                  setResidence={this.setResidence}/>}
               key={key}
             />
