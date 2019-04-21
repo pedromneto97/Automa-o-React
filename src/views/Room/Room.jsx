@@ -37,9 +37,11 @@ class Room extends React.Component {
   }
 
   componentDidMount(): void {
-    this.setState({
-      interval: setInterval(this.getScenes, 500)
-    });
+    if (!this.getScenes()) {
+      this.setState({
+        interval: setInterval(this.getScenes, 100)
+      });
+    }
   }
 
   componentWillUnmount(): void {
@@ -64,7 +66,9 @@ class Room extends React.Component {
       this.setState({
         interval: null
       });
+      return true;
     }
+    return false;
   }
 
   render() {
