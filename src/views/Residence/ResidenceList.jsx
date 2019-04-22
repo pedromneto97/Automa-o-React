@@ -74,10 +74,7 @@ function Residence(props) {
 
 function rooms_table(rooms) {
   let r = [];
-  console.log(rooms);
-  rooms.map((prop) => {
-    r.push([prop.name, prop.alias, prop.icon, prop.type.type, prop.scenes.length]);
-  });
+  rooms.map((prop) => (r.push([prop.name, prop.alias, prop.icon, prop.type.type, prop.scenes.length])));
   return r;
 }
 
