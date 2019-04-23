@@ -1,0 +1,108 @@
+import React from "react";
+import { Link } from "react-router-dom";
+// nodejs library to set properties for components
+import PropTypes from "prop-types";
+
+import Table from "components/Table/Table.jsx";
+
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+
+import Button from "components/CustomButtons/Button.jsx";
+import Tooltip from "@material-ui/core/Tooltip";
+import Edit from "@material-ui/icons/Edit";
+import Delete from "@material-ui/icons/Delete";
+import withStyles from "@material-ui/core/styles/withStyles";
+import tasksStyle from "assets/jss/material-dashboard-react/components/tasksStyle.jsx";
+
+class RoomList extends React.Component {
+
+  rooms_table = () => {
+    let r = [];
+    this.props.rooms.map((prop) => (r.push([
+      prop.name,
+      prop.alias,
+      prop.icon,
+      prop.type.type,
+      prop.scenes.length,
+      <Link to={"/admin/room/info/" + prop.alias}>
+        <Tooltip
+          id="tooltip-top"
+          title="Edit Room"
+          placement="top"
+          classes={{ tooltip: this.props.classes.tooltip }}>
+          <Button justIcon color="info" size='sm' className='pull-right'><Edit/></Button>
+        </Tooltip>
+      </Link>,
+      <Tooltip
+        id="tooltip-top"
+        title="Remove Room"
+        placement="top"
+        classes={{ tooltip: this.props.classes.tooltip }}>
+        <Button justIcon color="danger" size='sm' className='pull-right'><Delete/></Button>
+      </Tooltip>
+    ])));
+    return r;
+  };
+
+  render() {
+    const {
+      classes
+    } = this.props;
+    return (
+      <Card>
+        <CardHeader color="info">
+          <h4 className={classes.cardTitleWhite}>
+            Residence Rooms
+          </h4>
+        </CardHeader>
+        <CardBody>
+          <Table
+            tableHeaderColor="info"
+            tableHead={["Name", "Alias", "Icon", "Type", "Scenes Items", "", ""]}
+            tableData={this.rooms_table()}
+          />
+        </CardBody>
+      </Card>
+    );
+  }
+}
+
+RoomList.propTypes = {
+  classes: PropTypes.object.isRequired,
+  rooms: PropTypes.array.isRequired
+};
+
+let styles = {
+  cardCategoryWhite: {
+    "&,& a,& a:hover,& a:focus": {
+      color: "rgba(255,255,255,.62)",
+      margin: "0",
+      fontSize: "14px",
+      marginTop: "0",
+      marginBottom: "0"
+    },
+    "& a,& a:hover,& a:focus": {
+      color: "#FFFFFF"
+    }
+  },
+  cardTitleWhite: {
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none",
+    "& small": {
+      color: "#777",
+      fontSize: "65%",
+      fontWeight: "400",
+      lineHeight: "1"
+    }
+  }
+};
+Object.assign(styles, tasksStyle);
+
+export default withStyles(styles)(RoomList);
