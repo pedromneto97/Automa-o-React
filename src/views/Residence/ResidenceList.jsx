@@ -4,10 +4,14 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+
 import Table from "components/Table/Table.jsx";
+
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+
+import ResidenceInfo from "components/Residence/ResidenceInfo.jsx";
 
 const styles = {
   cardCategoryWhite: {
@@ -38,40 +42,6 @@ const styles = {
     }
   }
 };
-
-function Residence(props) {
-  const { residence } = props;
-  if (residence !== null) {
-    return (<div>
-      <p>
-        <b>Name:</b> {residence.name}
-      </p>
-      <p>
-        <b>Alias:</b> {residence.alias}
-      </p>
-      <p>
-        <b>Type:</b> {residence.type.type}
-      </p>
-      <p>
-        <b>Address:</b> {residence.address.street}, {residence.address.number} {residence.address.complement ? "," + residence.address.complement : null} - {residence.address.district}
-      </p>
-      <p>
-        <b>Postal Code:</b> {residence.address.postal_code.postal_code}
-      </p>
-      <p>
-        <b>City:</b> {residence.address.postal_code.city}
-      </p>
-      <p>
-        <b>Province:</b> {residence.address.postal_code.province}
-      </p>
-      <p>
-        <b>Country:</b> {residence.address.postal_code.country}
-      </p>
-    </div>);
-  }
-  return null;
-}
-
 function rooms_table(rooms) {
   let r = [];
   rooms.map((prop) => (r.push([prop.name, prop.alias, prop.icon, prop.type.type, prop.scenes.length])));
@@ -129,14 +99,7 @@ class ResidenceList extends React.Component {
     return (
       <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
-          <Card>
-            <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Residence Info</h4>
-            </CardHeader>
-            <CardBody>
-              <Residence residence={this.state.residence}/>
-            </CardBody>
-          </Card>
+          <ResidenceInfo classes={classes} residence={this.state.residence}/>
         </GridItem>
         <GridItem xs={12} sm={12} md={6}>
           <Card>
