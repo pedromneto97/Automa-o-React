@@ -39,7 +39,6 @@ class Residence extends React.Component {
           this.setState({
             residence: res ? res : null
           });
-          console.log(this.state.residence);
         }.bind(this))
         .catch(function(error) {
           console.error(error);
