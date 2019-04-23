@@ -39,7 +39,7 @@ class Residence extends React.Component {
           <Link to={"/admin/residence/" + residence.alias}>
             <Button color="info" size="sm">More info</Button>
           </Link>
-          <Link to={"/admin/residence/list/" + residence.alias}>
+          <Link to={"/admin/residence/info/" + residence.alias}>
             <Tooltip
               id="tooltip-top"
               title="Edit Residence"

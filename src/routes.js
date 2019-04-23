@@ -3,7 +3,7 @@ import Dashboard from "@material-ui/icons/Dashboard";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import Residence from "views/Residence/Residence.jsx";
-import ResidenceList from "views/Residence/ResidenceList.jsx";
+import ResidenceInfo from "views/Residence/ResidenceInfo.jsx";
 import Room from "views/Room/Room.jsx";
 
 
@@ -17,9 +17,9 @@ const dashboardRoutes = [
     invisible: false
   },
   {
-    path: "/residence/list/:alias",
-    name: "Residence List",
-    component: ResidenceList,
+    path: "/residence/info/:alias",
+    name: "Residence Info",
+    component: ResidenceInfo,
     layout: "/admin",
     invisible: true
   },
