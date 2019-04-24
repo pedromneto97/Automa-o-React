@@ -37,12 +37,12 @@ class Residence extends React.Component {
         </CardHeader>
         <CardBody>
           <Link to={"/admin/residence/" + residence.alias}>
-            <Button color="info" size="sm">More info</Button>
+            <Button color="info" size="sm">Show Rooms</Button>
           </Link>
           <Link to={"/admin/residence/info/" + residence.alias}>
             <Tooltip
               id="tooltip-top"
-              title="Edit Residence"
+              title="Residence Info"
               placement="top"
               classes={{ tooltip: classes.tooltip }}>
               <Button justIcon round color="secondary" size='sm' className='pull-right'><Settings/></Button>
