@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Edit from "@material-ui/icons/Edit";
+import Person from "@material-ui/icons/Person";
 
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
@@ -60,6 +61,15 @@ class ResidenceInfo extends React.Component {
                 placement="top"
                 classes={{ tooltip: classes.tooltip }}>
                 <Button justIcon color="info" size='sm' className='pull-right'><Edit/></Button>
+              </Tooltip>
+            </Link>
+            <Link to={"/admin/residence/users/" + residence.alias}>
+              <Tooltip
+                id="tooltip-top"
+                title="Edit Residence Users"
+                placement="top"
+                classes={{ tooltip: classes.tooltip }}>
+                <Button justIcon color="info" size='sm' className='pull-right'><Person/></Button>
               </Tooltip>
             </Link>
           </CardBody>
