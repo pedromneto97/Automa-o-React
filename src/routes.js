@@ -4,6 +4,7 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import Residence from "views/Residence/Residence.jsx";
 import ResidenceInfo from "views/Residence/ResidenceInfo.jsx";
+import ResidenceEdit from "views/Residence/ResidenceEdit.jsx";
 import Room from "views/Room/Room.jsx";
 
 
@@ -20,6 +21,13 @@ const dashboardRoutes = [
     path: "/residence/info/:alias",
     name: "Residence Info",
     component: ResidenceInfo,
+    layout: "/admin",
+    invisible: true
+  },
+  {
+    path: "/residence/edit/:alias",
+    name: "Residence Edit",
+    component: ResidenceEdit,
     layout: "/admin",
     invisible: true
   },
