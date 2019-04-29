@@ -45,7 +45,12 @@ class Sensor extends React.Component {
                 </div>
             </CardFooter>;
         }
-        return null;
+        return <CardFooter stats>
+            <div className={classes.stats}>
+                <AccessTime/>
+                No measures
+            </div>
+        </CardFooter>;
     }
 }
 
