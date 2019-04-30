@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import AccessTime from "@material-ui/icons/AccessTime";
 
 import CardFooter from "components/Card/CardFooter.jsx";
+import CardBody from "../Card/CardBody";
 
 class Sensor extends React.Component {
 
@@ -19,7 +20,11 @@ class Sensor extends React.Component {
 
     set_measurement = (res) => {
         let measurement = JSON.parse(res);
-        measurement.timestamp = new Date(measurement.timestamp.$date);
+        if (measurement.timestamp.$date) {
+            measurement.timestamp = new Date(measurement.timestamp.$date);
+        } else {
+            measurement.timestamp = new Date(Date.UTC(measurement.timestamp[0], measurement.timestamp[1] - 1, measurement.timestamp[2], measurement.timestamp[3], measurement.timestamp[4], measurement.timestamp[5]));
+        }
         this.setState({
             last_measurement: measurement
         });
@@ -38,12 +43,19 @@ class Sensor extends React.Component {
             classes
         } = this.props;
         if (this.state.last_measurement !== null) {
-            return <CardFooter stats>
-                <div className={classes.stats}>
-                    <AccessTime/>
-                    {"Last update at " + this.getDate()}
-                </div>
-            </CardFooter>;
+            return <div>
+                <CardBody className={classes.cardTitle}>
+                    <h3>
+                        {this.state.last_measurement.value}
+                    </h3>
+                </CardBody>
+                <CardFooter stats>
+                    <div className={classes.stats}>
+                        <AccessTime/>
+                        {"Last update at " + this.getDate()}
+                    </div>
+                </CardFooter>
+            </div>;
         }
         return <CardFooter stats>
             <div className={classes.stats}>
