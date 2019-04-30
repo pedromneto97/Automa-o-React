@@ -38,6 +38,12 @@ class Sensor extends React.Component {
         return this.state.last_measurement.timestamp.toLocaleString();
     };
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (this.props.session !== nextProps.session) {
+            nextProps.session.subscribe("com.herokuapp.crossbar-pedro.measurement." + this.props.scene._id.$oid + ".create", this.set_measurement);
+        }
+    }
+
     render() {
         const {
             classes
