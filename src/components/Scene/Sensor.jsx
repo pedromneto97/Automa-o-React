@@ -12,7 +12,7 @@ class Sensor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            last_measurement: null
+            last_measurement: null,
         };
         props.session.call("com.herokuapp.crossbar-pedro.measurement.last", [props.scene._id.$oid]).then(this.set_measurement);
         props.session.subscribe("com.herokuapp.crossbar-pedro.measurement." + props.scene._id.$oid + ".create", this.set_measurement);
@@ -37,12 +37,6 @@ class Sensor extends React.Component {
         }
         return this.state.last_measurement.timestamp.toLocaleString();
     };
-
-    componentWillReceiveProps(nextProps, nextContext) {
-        if (this.props.session !== nextProps.session) {
-            nextProps.session.subscribe("com.herokuapp.crossbar-pedro.measurement." + this.props.scene._id.$oid + ".create", this.set_measurement);
-        }
-    }
 
     render() {
         const {

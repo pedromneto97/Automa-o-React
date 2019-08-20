@@ -1,3 +1,20 @@
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import React from "react";
 import PropTypes from "prop-types";
 // @material-ui/core components
@@ -17,7 +34,7 @@ function CustomTable({...props}) {
             <Table className={classes.table}>
                 {tableHead !== undefined ? (
                     <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
-                        <TableRow>
+                        <TableRow className={classes.tableHeadRow}>
                             {tableHead.map((prop, key) => {
                                 return (
                                     <TableCell
@@ -34,7 +51,7 @@ function CustomTable({...props}) {
                 <TableBody>
                     {tableData.map((prop, key) => {
                         return (
-                            <TableRow key={key}>
+                            <TableRow key={key} className={classes.tableBodyRow}>
                                 {prop.map((prop, key) => {
                                     return (
                                         <TableCell className={classes.tableCell} key={key}>
@@ -67,7 +84,7 @@ CustomTable.propTypes = {
         "gray"
     ]),
     tableHead: PropTypes.arrayOf(PropTypes.string),
-  tableData: PropTypes.arrayOf(PropTypes.array)
+    tableData: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
 };
 
 export default withStyles(tableStyle)(CustomTable);

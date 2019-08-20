@@ -1,3 +1,20 @@
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import {hexToRgb, whiteColor} from "assets/jss/material-dashboard-react.jsx";
 
 const customTabsStyle = {
@@ -37,13 +54,6 @@ const customTabsStyle = {
             marginLeft: "0px"
         }
     },
-    tabLabelContainer: {
-        padding: "0px"
-    },
-    tabLabel: {
-        fontWeight: "500",
-        fontSize: "12px"
-    },
     tabSelected: {
         backgroundColor: "rgba(" + hexToRgb(whiteColor) + ", 0.2)",
         transition: "0.2s background-color 0.1s"
@@ -56,9 +66,12 @@ const customTabsStyle = {
         height: "unset !important",
         maxWidth: "unset !important",
         maxHeight: "unset !important",
+        fontWeight: "500",
+        fontSize: "12px",
+        marginTop: "1px",
         "& > svg,& > .material-icons": {
             verticalAlign: "middle",
-            margin: "-1px 5px 0 0"
+            margin: "-1px 5px 0 0 !important"
         }
     }
 };

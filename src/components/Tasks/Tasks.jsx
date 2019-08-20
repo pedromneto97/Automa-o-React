@@ -1,3 +1,20 @@
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
@@ -60,9 +77,7 @@ class Tasks extends React.Component {
                                     }}
                                 />
                             </TableCell>
-                            <TableCell className={tableCellClasses}>
-                                {tasks[value]}
-                            </TableCell>
+                            <TableCell className={tableCellClasses}>{tasks[value]}</TableCell>
                             <TableCell className={classes.tableActions}>
                                 <Tooltip
                                     id="tooltip-top"
@@ -111,7 +126,8 @@ Tasks.propTypes = {
     classes: PropTypes.object.isRequired,
     tasksIndexes: PropTypes.arrayOf(PropTypes.number),
     tasks: PropTypes.arrayOf(PropTypes.node),
-    rtlActive: PropTypes.bool
+    rtlActive: PropTypes.bool,
+    checkedIndexes: PropTypes.array
 };
 
 export default withStyles(tasksStyle)(Tasks);

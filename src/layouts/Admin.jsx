@@ -1,7 +1,23 @@
-/* eslint-disable */
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import React from "react";
 import PropTypes from "prop-types";
-import { Route, Switch } from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -16,13 +32,16 @@ import routes from "routes.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 // Crossbar
-import { Connection } from "autobahn";
+import {Connection} from "autobahn";
 
 import RoomPage from "views/Room/Room.jsx";
 import ResidencePage from "views/Residence/Residence.jsx";
 
 import image from "assets/img/caecomp.jpg";
 import logo from "assets/img/reactlogo.png";
+
+
+let ps;
 
 class Dashboard extends React.Component {
 
@@ -61,6 +80,8 @@ class Dashboard extends React.Component {
     this.state.connection.open();
   }
 
+    mainPanel = React.createRef();
+
   setResidence = (residence) => {
     let r = [];
     r = r.concat(routes);
@@ -73,7 +94,7 @@ class Dashboard extends React.Component {
       invisible: false
     });
     residence.rooms.map((prop) => {
-      r.push({
+        return r.push({
         path: "/room/" + prop.alias,
         name: prop.name,
         icon: prop.icon ? prop.icon : prop.type.icon,
@@ -88,20 +109,21 @@ class Dashboard extends React.Component {
   };
 
   switchRoutes = () => (
-    <Switch>
-      {routes.map((prop, key) => {
-        if (prop.layout === "/admin") {
-          return (
-            <Route
-              path={prop.layout + prop.path}
-              render={(props) => <prop.component {...props} session={this.state.session}
-                                                 setResidence={this.setResidence}/>}
-              key={key}
-            />
-          );
-        }
-      })}
-    </Switch>
+      <Switch>
+          {routes.map((prop, key) => {
+              if (prop.layout === "/admin") {
+                  return (
+                      <Route
+                          path={prop.layout + prop.path}
+                          render={(props) => <prop.component {...props} session={this.state.session}
+                                                             setResidence={this.setResidence}/>}
+                          key={key}
+                      />
+                  );
+              }
+              return null;
+          })}
+      </Switch>
   );
 
   handleDrawerToggle = () => {
@@ -109,55 +131,52 @@ class Dashboard extends React.Component {
   };
 
   getRoute() {
-    return this.props.location.pathname !== "/admin/maps";
+      return window.location.pathname !== "/admin/maps";
   }
-
   resizeFunction = () => {
     if (window.innerWidth >= 960) {
       this.setState({ mobileOpen: false });
     }
   };
-
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
-      const ps = new PerfectScrollbar(this.refs.mainPanel);
+        ps = new PerfectScrollbar(this.mainPanel.current);
     }
     window.addEventListener("resize", this.resizeFunction);
   }
-
   componentDidUpdate(e) {
     if (e.history.location.pathname !== e.location.pathname) {
-      this.refs.mainPanel.scrollTop = 0;
+        this.mainPanel.current.scrollTop = 0;
       if (this.state.mobileOpen) {
         this.setState({ mobileOpen: false });
       }
     }
   }
-
   componentWillUnmount() {
+      if (navigator.platform.indexOf("Win") > -1) {
+          ps.destroy();
+      }
     window.removeEventListener("resize", this.resizeFunction);
-    this.state.connection.close();
   }
-
   render() {
     const { classes, ...rest } = this.props;
     return (
       <div className={classes.wrapper}>
         <Sidebar
-          routes={this.state.routes}
-          logoText={"Domotics"}
-          logo={logo}
-          image={this.state.image}
-          handleDrawerToggle={this.handleDrawerToggle}
-          open={this.state.mobileOpen}
-          color={this.state.color}
-          {...rest}
-        />
-        <div className={classes.mainPanel} ref="mainPanel">
-          <Navbar
-            routes={this.state.routes}
+            routes={routes}
+            logoText={"Domotics"}
+            logo={logo}
+            image={this.state.image}
             handleDrawerToggle={this.handleDrawerToggle}
+            open={this.state.mobileOpen}
+            color={this.state.color}
             {...rest}
+        />
+          <div className={classes.mainPanel} ref={this.mainPanel}>
+          <Navbar
+              routes={routes}
+              handleDrawerToggle={this.handleDrawerToggle}
+              {...rest}
           />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
           {this.getRoute() ? (

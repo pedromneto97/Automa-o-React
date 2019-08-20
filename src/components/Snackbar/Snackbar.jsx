@@ -1,3 +1,20 @@
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -73,10 +90,11 @@ Snackbar.propTypes = {
     message: PropTypes.node.isRequired,
     color: PropTypes.oneOf(["info", "success", "warning", "danger", "primary"]),
     close: PropTypes.bool,
-    icon: PropTypes.func,
+    icon: PropTypes.object,
     place: PropTypes.oneOf(["tl", "tr", "tc", "br", "bl", "bc"]),
     open: PropTypes.bool,
-    rtlActive: PropTypes.bool
+    rtlActive: PropTypes.bool,
+    closeNotification: PropTypes.func
 };
 
 export default withStyles(snackbarContentStyle)(Snackbar);

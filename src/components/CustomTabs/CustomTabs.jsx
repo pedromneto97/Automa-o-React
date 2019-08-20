@@ -1,3 +1,20 @@
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -63,8 +80,6 @@ class CustomTabs extends React.Component {
                                 <Tab
                                     classes={{
                                         root: classes.tabRootButton,
-                                        labelContainer: classes.tabLabelContainer,
-                                        label: classes.tabLabel,
                                         selected: classes.tabSelected,
                                         wrapper: classes.tabWrapper
                                     }}
@@ -96,13 +111,14 @@ CustomTabs.propTypes = {
         "success",
         "danger",
         "info",
-        "primary"
+        "primary",
+        "rose"
     ]),
     title: PropTypes.string,
     tabs: PropTypes.arrayOf(
         PropTypes.shape({
             tabName: PropTypes.string.isRequired,
-            tabIcon: PropTypes.func,
+            tabIcon: PropTypes.object,
             tabContent: PropTypes.node.isRequired
         })
     ),

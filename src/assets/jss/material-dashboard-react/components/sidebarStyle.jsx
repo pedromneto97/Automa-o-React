@@ -1,3 +1,20 @@
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import {
     blackColor,
     boxShadow,
@@ -188,7 +205,7 @@ const sidebarStyle = theme => ({
     purple: {
         backgroundColor: primaryColor[0],
         ...primaryBoxShadow,
-        "&:hover": {
+        "&:hover,&:focus": {
             backgroundColor: primaryColor[0],
             ...primaryBoxShadow
         }
@@ -203,7 +220,7 @@ const sidebarStyle = theme => ({
             ",.12), 0 7px 8px -5px rgba(" +
             hexToRgb(infoColor[0]) +
             ",.2)",
-        "&:hover": {
+        "&:hover,&:focus": {
             backgroundColor: infoColor[0],
             boxShadow:
                 "0 12px 20px -10px rgba(" +
@@ -225,7 +242,7 @@ const sidebarStyle = theme => ({
             ",.12), 0 7px 8px -5px rgba(" +
             hexToRgb(successColor[0]) +
             ",.2)",
-        "&:hover": {
+        "&:hover,&:focus": {
             backgroundColor: successColor[0],
             boxShadow:
                 "0 12px 20px -10px rgba(" +
@@ -247,7 +264,7 @@ const sidebarStyle = theme => ({
             ",.12), 0 7px 8px -5px rgba(" +
             hexToRgb(warningColor[0]) +
             ",.2)",
-        "&:hover": {
+        "&:hover,&:focus": {
             backgroundColor: warningColor[0],
             boxShadow:
                 "0 12px 20px -10px rgba(" +
@@ -269,7 +286,7 @@ const sidebarStyle = theme => ({
             ",.12), 0 7px 8px -5px rgba(" +
             hexToRgb(dangerColor[0]) +
             ",.2)",
-        "&:hover": {
+        "&:hover,&:focus": {
             backgroundColor: dangerColor[0],
             boxShadow:
                 "0 12px 20px -10px rgba(" +

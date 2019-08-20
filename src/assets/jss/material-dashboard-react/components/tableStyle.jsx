@@ -1,3 +1,20 @@
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import {
     dangerColor,
     defaultFont,
@@ -42,18 +59,35 @@ const tableStyle = theme => ({
     tableHeadCell: {
         color: "inherit",
         ...defaultFont,
-        fontSize: "1em"
+        "&, &$tableCell": {
+            fontSize: "1em"
+        }
     },
     tableCell: {
         ...defaultFont,
         lineHeight: "1.42857143",
         padding: "12px 8px",
-        verticalAlign: "middle"
+        verticalAlign: "middle",
+        fontSize: "0.8125rem"
     },
     tableResponsive: {
         width: "100%",
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         overflowX: "auto"
+    },
+    tableHeadRow: {
+        height: "56px",
+        color: "inherit",
+        display: "table-row",
+        outline: "none",
+        verticalAlign: "middle"
+    },
+    tableBodyRow: {
+        height: "48px",
+        color: "inherit",
+        display: "table-row",
+        outline: "none",
+        verticalAlign: "middle"
     }
 });
 

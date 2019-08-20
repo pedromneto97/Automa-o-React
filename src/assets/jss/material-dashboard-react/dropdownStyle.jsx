@@ -1,3 +1,20 @@
+/*!
+
+=========================================================
+* Material Dashboard React - v1.7.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import {
     blackColor,
     defaultFont,
@@ -50,13 +67,13 @@ const dropdownStyle = theme => ({
             color: "black"
         }
     },
-    pooperNav: {
+    popperNav: {
         [theme.breakpoints.down("sm")]: {
             position: "static !important",
             left: "unset !important",
             top: "unset !important",
             transform: "none !important",
-            willChange: "none !important",
+            willChange: "unset !important",
             "& > div": {
                 boxShadow: "none !important",
                 marginLeft: "0rem",
@@ -112,6 +129,7 @@ const dropdownStyle = theme => ({
         color: grayColor[8],
         whiteSpace: "nowrap",
         height: "unset",
+        minHeight: "unset",
         "&:hover": {
             backgroundColor: primaryColor[0],
             color: whiteColor,
