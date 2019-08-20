@@ -18,6 +18,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import {connect} from "react-redux";
 
 const styles = theme => ({
   cardCategoryWhite: {
@@ -72,15 +73,15 @@ class EditResidence extends React.Component {
   getResidence = () => {
     if (this.props.session) {
       this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.alias])
-        .then(function(res) {
-          res = JSON.parse(res);
-          this.setState({
-            residence: res ? res : null
+          .then(function (res) {
+              res = JSON.parse(res);
+              this.setState({
+                  residence: res ? res : null
+              });
+          }.bind(this))
+          .catch(function (error) {
+              console.error(error);
           });
-        }.bind(this))
-        .catch(function(error) {
-          console.error(error);
-        });
       clearInterval(this.state.interval);
       this.setState({
         interval: null
@@ -91,192 +92,200 @@ class EditResidence extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+      const {classes} = this.props;
     if (this.state.residence) {
-      const { residence } = this.state;
+        const {residence} = this.state;
       return (
-        <div>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={12}>
-              <Card>
-                <CardHeader color="primary">
-                  <h4 className={classes.cardTitleWhite}>Edit Residence</h4>
-                </CardHeader>
-                <CardBody>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <CustomInput
-                        labelText="Name"
-                        id="company-disabled"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.name
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={3}>
-                      <CustomInput
-                        labelText="Alias"
-                        id="alias"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.alias
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={5}>
-                      <FormControl variant="outlined" className={classes.formControl} fullWidth>
-                        <InputLabel htmlFor="filled-age-simple">Residence Type</InputLabel>
-                        <Select
-                          value={residence.type.type}
-                          input={<Input name="age" id="age-helper"/>}
-                        >
-                          <MenuItem value={null}>
-                            <em>None</em>
-                          </MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
-                      <CustomInput
-                        labelText="Street"
-                        id="street"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.address.street
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={2}>
-                      <CustomInput
-                        labelText="Number"
-                        id="Number"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.address.number,
-                          type: "number"
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={3}>
-                      <CustomInput
-                        labelText="District"
-                        id="District"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.address.district
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={3}>
-                      <CustomInput
-                        labelText="Complement"
-                        id="complement"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.address.complement
-                        }}
-                      />
-                    </GridItem>
-                  </GridContainer>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={3}>
-                      <CustomInput
-                        labelText="Postal Code"
-                        id="postal_code"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.address.postal_code.postal_code
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={3}>
-                      <CustomInput
-                        labelText="City"
-                        id="city"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.address.postal_code.city,
-                          disabled: true
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={3}>
-                      <CustomInput
-                        labelText="Province"
-                        id="province"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.address.postal_code.province,
-                          disabled: true
-                        }}
-                      />
-                    </GridItem>
-                    <GridItem xs={12} sm={12} md={3}>
-                      <CustomInput
-                        labelText="Country"
-                        id="country"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          value: residence.address.postal_code.country,
-                          disabled: true
-                        }}
-                      />
-                    </GridItem>
-                  </GridContainer>
-                </CardBody>
-                <CardFooter>
-                  <Button color="primary">Update Profile</Button>
-                </CardFooter>
-              </Card>
-            </GridItem>
-          </GridContainer>
-        </div>
+          <div>
+              <GridContainer>
+                  <GridItem xs={12} sm={12} md={12}>
+                      <Card>
+                          <CardHeader color="primary">
+                              <h4 className={classes.cardTitleWhite}>Edit Residence</h4>
+                          </CardHeader>
+                          <CardBody>
+                              <GridContainer>
+                                  <GridItem xs={12} sm={12} md={4}>
+                                      <CustomInput
+                                          labelText="Name"
+                                          id="company-disabled"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.name
+                                          }}
+                                      />
+                                  </GridItem>
+                                  <GridItem xs={12} sm={12} md={3}>
+                                      <CustomInput
+                                          labelText="Alias"
+                                          id="alias"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.alias
+                                          }}
+                                      />
+                                  </GridItem>
+                                  <GridItem xs={12} sm={12} md={5}>
+                                      <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                                          <InputLabel htmlFor="filled-age-simple">Residence Type</InputLabel>
+                                          <Select
+                                              value={residence.type.type}
+                                              input={<Input name="age" id="age-helper"/>}
+                                          >
+                                              <MenuItem value={null}>
+                                                  <em>None</em>
+                                              </MenuItem>
+                                              <MenuItem value={10}>Ten</MenuItem>
+                                              <MenuItem value={20}>Twenty</MenuItem>
+                                              <MenuItem value={30}>Thirty</MenuItem>
+                                          </Select>
+                                      </FormControl>
+                                  </GridItem>
+                              </GridContainer>
+                              <GridContainer>
+                                  <GridItem xs={12} sm={12} md={4}>
+                                      <CustomInput
+                                          labelText="Street"
+                                          id="street"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.address.street
+                                          }}
+                                      />
+                                  </GridItem>
+                                  <GridItem xs={12} sm={12} md={2}>
+                                      <CustomInput
+                                          labelText="Number"
+                                          id="Number"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.address.number,
+                                              type: "number"
+                                          }}
+                                      />
+                                  </GridItem>
+                                  <GridItem xs={12} sm={12} md={3}>
+                                      <CustomInput
+                                          labelText="District"
+                                          id="District"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.address.district
+                                          }}
+                                      />
+                                  </GridItem>
+                                  <GridItem xs={12} sm={12} md={3}>
+                                      <CustomInput
+                                          labelText="Complement"
+                                          id="complement"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.address.complement
+                                          }}
+                                      />
+                                  </GridItem>
+                              </GridContainer>
+                              <GridContainer>
+                                  <GridItem xs={12} sm={12} md={3}>
+                                      <CustomInput
+                                          labelText="Postal Code"
+                                          id="postal_code"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.address.postal_code.postal_code
+                                          }}
+                                      />
+                                  </GridItem>
+                                  <GridItem xs={12} sm={12} md={3}>
+                                      <CustomInput
+                                          labelText="City"
+                                          id="city"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.address.postal_code.city,
+                                              disabled: true
+                                          }}
+                                      />
+                                  </GridItem>
+                                  <GridItem xs={12} sm={12} md={3}>
+                                      <CustomInput
+                                          labelText="Province"
+                                          id="province"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.address.postal_code.province,
+                                              disabled: true
+                                          }}
+                                      />
+                                  </GridItem>
+                                  <GridItem xs={12} sm={12} md={3}>
+                                      <CustomInput
+                                          labelText="Country"
+                                          id="country"
+                                          formControlProps={{
+                                              fullWidth: true
+                                          }}
+                                          inputProps={{
+                                              value: residence.address.postal_code.country,
+                                              disabled: true
+                                          }}
+                                      />
+                                  </GridItem>
+                              </GridContainer>
+                          </CardBody>
+                          <CardFooter>
+                              <Button color="primary">Update Profile</Button>
+                          </CardFooter>
+                      </Card>
+                  </GridItem>
+              </GridContainer>
+          </div>
       );
     } else {
       return (
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={5}>
-            <CustomInput
-              labelText="Company (disabled)"
-              id="company-disabled"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                disabled: true
-              }}
-            />
-          </GridItem>
-        </GridContainer>
+          <GridContainer>
+              <GridItem xs={12} sm={12} md={5}>
+                  <CustomInput
+                      labelText="Company (disabled)"
+                      id="company-disabled"
+                      formControlProps={{
+                          fullWidth: true
+                      }}
+                      inputProps={{
+                          disabled: true
+                      }}
+                  />
+              </GridItem>
+          </GridContainer>
       );
     }
   };
 }
 
-export default withStyles(styles)(EditResidence);
+const mapStateToProps = state => {
+    const {session} = state;
+    return {
+        session
+    };
+};
+
+
+export default connect(mapStateToProps)(withStyles(styles)(EditResidence));

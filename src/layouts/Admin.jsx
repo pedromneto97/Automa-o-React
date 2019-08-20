@@ -40,13 +40,12 @@ import ResidencePage from "views/Residence/Residence.jsx";
 import image from "assets/img/caecomp.jpg";
 import logo from "assets/img/reactlogo.png";
 
-import {connect} from 'react-redux'
+import {connect} from "react-redux";
 import {add_session} from "../store/actions";
 
 let ps;
 
 class Dashboard extends React.Component {
-
     constructor(props) {
         super(props);
         let ws_uri;
@@ -54,16 +53,22 @@ class Dashboard extends React.Component {
             ws_uri = {
                 transports: [
                     {
-                        "type": "websocket",
-                        "url": "ws://crossbar-pedro.herokuapp.com/ws"
+                        type: "websocket",
+                        url: "ws://crossbar-pedro.herokuapp.com/ws"
                     }
                 ]
             };
         } else {
             ws_uri = {
-                url: (document.location.protocol === "http:" ? "ws:" : "wss:") + "//" + document.location.host + "/ws"
+                url:
+                    (document.location.protocol === "http:" ? "ws:" : "wss:") +
+                    "//" +
+                    document.location.host +
+                    "/ws"
             };
         }
+        this.mainPanel = React.createRef();
+
         ws_uri["realm"] = "realm1";
         this.state = {
             image: image,
@@ -72,24 +77,20 @@ class Dashboard extends React.Component {
             fixedClasses: "dropdown show",
             mobileOpen: false,
             connection: new Connection(ws_uri),
-            session: null,
             routes: routes,
             residence: this.props.residence
         };
         this.state.connection.onopen = function (session, details) {
             console.info("Aberto");
-            this.setState({session});
             this.props.add_session(session);
-            this.props.crossbar.forEach((item) => {
+            this.props.crossbar.forEach(item => {
                 session.subscribe(item.topic, item.callback);
-            })
+            });
         }.bind(this);
         this.state.connection.open();
     }
 
-    mainPanel = React.createRef();
-
-    setResidence = (residence) => {
+    setResidence = residence => {
         let r = [];
         r = r.concat(routes);
         r.push({
@@ -100,7 +101,7 @@ class Dashboard extends React.Component {
             layout: "/admin",
             invisible: false
         });
-        residence.rooms.map((prop) => {
+        residence.rooms.map(prop => {
             return r.push({
                 path: "/room/" + prop.alias,
                 name: prop.name,
@@ -122,8 +123,9 @@ class Dashboard extends React.Component {
                     return (
                         <Route
                             path={prop.layout + prop.path}
-                            render={(props) => <prop.component {...props} session={this.state.session}
-                                                               setResidence={this.setResidence}/>}
+                            render={props => (
+                                <prop.component {...props} setResidence={this.setResidence}/>
+                            )}
                             key={key}
                         />
                     );
@@ -153,7 +155,6 @@ class Dashboard extends React.Component {
         }
         window.addEventListener("resize", this.resizeFunction);
     }
-
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const state = {};
@@ -234,4 +235,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(dashboardStyle)(Dashboard));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(dashboardStyle)(Dashboard));

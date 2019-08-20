@@ -93,11 +93,18 @@ Residence.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => {
-    console.log(dispatch);
     return {
         add_residence: residence =>
             dispatch(add_residence(residence))
     };
 };
 
-export default connect(null, mapDispatchToProps)(withStyles(dashboardStyle)(Residence));
+const mapStateToProps = state => {
+    const {session} = state;
+    return {
+        session
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(dashboardStyle)(Residence));

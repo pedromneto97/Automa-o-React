@@ -9,6 +9,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Scene from "components/Scene/Scene.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import {connect} from "react-redux";
 
 function ScenesList(props) {
     const {
@@ -94,4 +95,10 @@ Room.propTypes = {
     session: PropTypes.object
 };
 
-export default withStyles(dashboardStyle)(Room);
+const mapStateToProps = state => {
+    const {session} = state;
+    return {
+        session
+    };
+};
+export default connect(mapStateToProps)(withStyles(dashboardStyle)(Room));

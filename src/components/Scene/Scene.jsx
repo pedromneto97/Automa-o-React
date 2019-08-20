@@ -15,22 +15,21 @@ class Scene extends React.Component {
   render() {
     const {
       classes,
-      scene,
-      session
+      scene
     } = this.props;
     return (
-      <Card>
-        <CardHeader color="success" stats icon>
-          <CardIcon color="info">
-            <Icon>{scene.icon ? scene.icon : scene.type.icon}</Icon>
-          </CardIcon>
-          <p className={classes.cardCategory}>{scene.type.name}</p>
-          <h3 className={classes.cardTitle}>{scene.name}</h3>
-        </CardHeader>
-        {
-          scene.type.type === "SENSOR" ? <Sensor classes={classes} scene={scene} session={session}/> : null
-        }
-      </Card>
+        <Card>
+          <CardHeader color="success" stats icon>
+            <CardIcon color="info">
+              <Icon>{scene.icon ? scene.icon : scene.type.icon}</Icon>
+            </CardIcon>
+            <p className={classes.cardCategory}>{scene.type.name}</p>
+            <h3 className={classes.cardTitle}>{scene.name}</h3>
+          </CardHeader>
+          {
+            scene.type.type === "SENSOR" ? <Sensor classes={classes} scene={scene}/> : null
+          }
+        </Card>
     );
   }
 }
@@ -38,7 +37,6 @@ class Scene extends React.Component {
 Scene.propTypes = {
   classes: PropTypes.object.isRequired,
   scene: PropTypes.object.isRequired,
-  session: PropTypes.object
 };
 
 export default Scene;
