@@ -2,16 +2,15 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
+import GridItem from "../../components/Grid/GridItem.jsx";
+import GridContainer from "../../components/Grid/GridContainer.jsx";
+import CustomInput from "../../components/CustomInput/CustomInput.jsx";
+import Button from "../../components/CustomButtons/Button.jsx";
+import Card from "../../components/Card/Card.jsx";
+import CardHeader from "../../components/Card/CardHeader.jsx";
 
-import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
-
+import CardBody from "../../components/Card/CardBody.jsx";
+import CardFooter from "../../components/Card/CardFooter.jsx";
 
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -72,16 +71,21 @@ class EditResidence extends React.Component {
 
   getResidence = () => {
     if (this.props.session) {
-      this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.alias])
-          .then(function (res) {
-              res = JSON.parse(res);
-              this.setState({
-                  residence: res ? res : null
-              });
-          }.bind(this))
-          .catch(function (error) {
-              console.error(error);
-          });
+        this.props.session
+            .call("com.herokuapp.crossbar-pedro.residence.alias", [
+                this.state.alias
+            ])
+            .then(
+                function (res) {
+                    res = JSON.parse(res);
+                    this.setState({
+                        residence: res ? res : null
+                    });
+                }.bind(this)
+            )
+            .catch(function (error) {
+                console.error(error);
+            });
       clearInterval(this.state.interval);
       this.setState({
         interval: null
@@ -130,8 +134,14 @@ class EditResidence extends React.Component {
                                       />
                                   </GridItem>
                                   <GridItem xs={12} sm={12} md={5}>
-                                      <FormControl variant="outlined" className={classes.formControl} fullWidth>
-                                          <InputLabel htmlFor="filled-age-simple">Residence Type</InputLabel>
+                                      <FormControl
+                                          variant="outlined"
+                                          className={classes.formControl}
+                                          fullWidth
+                                      >
+                                          <InputLabel htmlFor="filled-age-simple">
+                                              Residence Type
+                                          </InputLabel>
                                           <Select
                                               value={residence.type.type}
                                               input={<Input name="age" id="age-helper"/>}
@@ -277,7 +287,7 @@ class EditResidence extends React.Component {
           </GridContainer>
       );
     }
-  };
+  }
 }
 
 const mapStateToProps = state => {
@@ -286,6 +296,5 @@ const mapStateToProps = state => {
         session
     };
 };
-
 
 export default connect(mapStateToProps)(withStyles(styles)(EditResidence));

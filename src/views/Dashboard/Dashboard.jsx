@@ -17,24 +17,24 @@ import BugReport from "@material-ui/icons/BugReport";
 import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import Table from "components/Table/Table.jsx";
-import Tasks from "components/Tasks/Tasks.jsx";
-import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
+import GridItem from "../../components/Grid/GridItem.jsx";
+import GridContainer from "../../components/Grid/GridContainer.jsx";
+import Table from "../../components/Table/Table.jsx";
+import Tasks from "../../components/Tasks/Tasks.jsx";
+import CustomTabs from "../../components/CustomTabs/CustomTabs.jsx";
+import Card from "../../components/Card/Card.jsx";
+import CardHeader from "../../components/Card/CardHeader.jsx";
+import CardIcon from "../../components/Card/CardIcon.jsx";
+import CardBody from "../../components/Card/CardBody.jsx";
+import CardFooter from "../../components/Card/CardFooter.jsx";
 // Residence module
-import Residence from "components/Residence/Residence.jsx";
+import Residence from "../../components/Residence/Residence.jsx";
 
 import {bugs, server, website} from "variables/general.jsx";
 
 import {completedTasksChart, dailySalesChart, emailsSubscriptionChart} from "variables/charts.jsx";
 
-import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import dashboardStyle from "../../assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import {connect} from "react-redux";
 
 function ResidenceList(props) {

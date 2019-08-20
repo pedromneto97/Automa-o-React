@@ -3,21 +3,18 @@ import PropTypes from "prop-types";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "../../components/Grid/GridItem.jsx";
+import GridContainer from "../../components/Grid/GridContainer.jsx";
 // Room module
-import Room from "components/Room/Room.jsx";
+import Room from "../../components/Room/Room.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import {connect} from "react-redux";
 import {add_residence} from "../../store/actions";
 
 function RoomsList(props) {
-    const {
-        rooms,
-        classes
-    } = props;
-    return (rooms.map((room) =>
+    const {rooms, classes} = props;
+    return rooms.map(room => (
         <GridItem xs={12} sm={6} md={3} key={room._id.$oid}>
             <Room classes={classes} room={room}/>
         </GridItem>
@@ -37,7 +34,6 @@ class Residence extends React.Component {
         this.getRooms = this.getRooms.bind(this);
     }
 
-
     componentDidMount() {
         if (!this.getRooms()) {
             this.setState({
@@ -45,7 +41,6 @@ class Residence extends React.Component {
             });
         }
     }
-
 
     componentWillUnmount(): void {
         if (this.state.interval !== null) {
@@ -55,14 +50,19 @@ class Residence extends React.Component {
 
     getRooms() {
         if (this.props.session) {
-            this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.alias])
-                .then(function (res) {
-                    res = JSON.parse(res);
-                    this.setState({
-                        residence: res ? res : {rooms: []}
-                    });
-                    this.props.add_residence(this.state.residence);
-                }.bind(this))
+            this.props.session
+                .call("com.herokuapp.crossbar-pedro.residence.alias", [
+                    this.state.alias
+                ])
+                .then(
+                    function (res) {
+                        res = JSON.parse(res);
+                        this.setState({
+                            residence: res ? res : {rooms: []}
+                        });
+                        this.props.add_residence(this.state.residence);
+                    }.bind(this)
+                )
                 .catch(function (error) {
                     console.error(error);
                 });
@@ -94,8 +94,7 @@ Residence.propTypes = {
 
 const mapDispatchToProps = dispatch => {
     return {
-        add_residence: residence =>
-            dispatch(add_residence(residence))
+        add_residence: residence => dispatch(add_residence(residence))
     };
 };
 
@@ -106,5 +105,7 @@ const mapStateToProps = state => {
     };
 };
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(dashboardStyle)(Residence));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(dashboardStyle)(Residence));

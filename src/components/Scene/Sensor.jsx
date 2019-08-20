@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import AccessTime from "@material-ui/icons/AccessTime";
 
-import CardFooter from "components/Card/CardFooter.jsx";
+import CardFooter from "../Card/CardFooter.jsx";
 import CardBody from "../Card/CardBody";
 import {connect} from "react-redux";
 import {add_to_on_open, remove_to_on_open} from "../../store/actions";

@@ -24,7 +24,7 @@ import {NavLink} from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {Drawer, Hidden, Icon, List, ListItem, ListItemText} from "@material-ui/core";
 // core components
-import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.jsx";
+import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 
 import sidebarStyle from "assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
 import Link from "@material-ui/core/Link";
@@ -32,7 +32,7 @@ import Link from "@material-ui/core/Link";
 const Sidebar = ({...props}) => {
     // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName) {
-        return window.location.href.indexOf(routeName) > -1 ? true : false;
+        return window.location.href.indexOf(routeName) > -1;
     }
 
     const {classes, color, logo, image, logoText, routes} = props;
@@ -79,10 +79,7 @@ const Sidebar = ({...props}) => {
     );
     let brand = (
         <div className={classes.logo}>
-            <Link
-                to={"/"}
-                className={classNames(classes.logoLink)}
-            >
+            <Link to={"/"} className={classNames(classes.logoLink)}>
                 <div className={classes.logoImage}>
                     <img src={logo} alt="logo" className={classes.img}/>
                 </div>

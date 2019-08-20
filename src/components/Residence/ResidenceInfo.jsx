@@ -1,28 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 
 import Edit from "@material-ui/icons/Edit";
 import Person from "@material-ui/icons/Person";
 
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardBody from "components/Card/CardBody.jsx";
+import Card from "../Card/Card.jsx";
+import CardHeader from "../Card/CardHeader.jsx";
+import CardBody from "../Card/CardBody.jsx";
 
-import Button from "components/CustomButtons/Button.jsx";
+import Button from "../CustomButtons/Button.jsx";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import tasksStyle from "assets/jss/material-dashboard-react/components/tasksStyle.jsx";
-
+import tasksStyle from "../../assets/jss/material-dashboard-react/components/tasksStyle.jsx";
 
 class ResidenceInfo extends React.Component {
   render() {
-    const {
-      residence,
-      classes
-    } = this.props;
+    const {residence, classes} = this.props;
     if (residence !== null) {
       return (
         <Card>
@@ -40,7 +36,12 @@ class ResidenceInfo extends React.Component {
               <b>Type:</b> {residence.type.type}
             </p>
             <p>
-              <b>Address:</b> {residence.address.street}, {residence.address.number} {residence.address.complement ? "," + residence.address.complement : null} - {residence.address.district}
+              <b>Address:</b> {residence.address.street},{" "}
+              {residence.address.number}{" "}
+              {residence.address.complement
+                  ? "," + residence.address.complement
+                  : null}{" "}
+              - {residence.address.district}
             </p>
             <p>
               <b>Postal Code:</b> {residence.address.postal_code.postal_code}
@@ -56,20 +57,26 @@ class ResidenceInfo extends React.Component {
             </p>
             <Link to={"/admin/residence/edit/" + residence.alias}>
               <Tooltip
-                id="tooltip-top"
-                title="Edit Residence"
-                placement="top"
-                classes={{ tooltip: classes.tooltip }}>
-                <Button justIcon color="info" size='sm' className='pull-right'><Edit/></Button>
+                  id="tooltip-top"
+                  title="Edit Residence"
+                  placement="top"
+                  classes={{tooltip: classes.tooltip}}
+              >
+                <Button justIcon color="info" size="sm" className="pull-right">
+                  <Edit/>
+                </Button>
               </Tooltip>
             </Link>
             <Link to={"/admin/residence/users/" + residence.alias}>
               <Tooltip
-                id="tooltip-top"
-                title="Edit Residence Users"
-                placement="top"
-                classes={{ tooltip: classes.tooltip }}>
-                <Button justIcon color="info" size='sm' className='pull-right'><Person/></Button>
+                  id="tooltip-top"
+                  title="Edit Residence Users"
+                  placement="top"
+                  classes={{tooltip: classes.tooltip}}
+              >
+                <Button justIcon color="info" size="sm" className="pull-right">
+                  <Person/>
+                </Button>
               </Tooltip>
             </Link>
           </CardBody>
@@ -81,9 +88,7 @@ class ResidenceInfo extends React.Component {
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Residence Info</h4>
           </CardHeader>
-          <CardBody>
-            Loading
-          </CardBody>
+          <CardBody>Loading</CardBody>
         </Card>
       );
     }

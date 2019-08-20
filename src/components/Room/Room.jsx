@@ -6,19 +6,16 @@ import PropTypes from "prop-types";
 import Icon from "@material-ui/core/Icon";
 import AccessTime from "@material-ui/icons/AccessTime";
 
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
+import Card from "../Card/Card.jsx";
+import CardHeader from "../Card/CardHeader.jsx";
+import CardIcon from "../Card/CardIcon.jsx";
+import CardFooter from "../Card/CardFooter.jsx";
 
-import Button from "components/CustomButtons/Button.jsx";
+import Button from "../CustomButtons/Button.jsx";
 
 class Room extends React.Component {
     render() {
-        const {
-            classes,
-            room
-        } = this.props;
+        const {classes, room} = this.props;
         return (
             <Card>
                 <CardHeader color="success" stats icon>
@@ -33,7 +30,9 @@ class Room extends React.Component {
                         <AccessTime/>
                     </div>
                     <Link to={"/admin/room/" + room.alias}>
-                        <Button color="info" size="sm">Check room</Button>
+                        <Button color="info" size="sm">
+                            Check room
+                        </Button>
                     </Link>
                 </CardFooter>
             </Card>

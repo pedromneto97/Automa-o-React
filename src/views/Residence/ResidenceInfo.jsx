@@ -1,10 +1,10 @@
 import React from "react";
 
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "../../components/Grid/GridItem.jsx";
+import GridContainer from "../../components/Grid/GridContainer.jsx";
 
-import ResidenceInfo from "components/Residence/ResidenceInfo.jsx";
-import RoomList from "components/Room/RoomList.jsx";
+import ResidenceInfo from "../../components/Residence/ResidenceInfo.jsx";
+import RoomList from "../../components/Room/RoomList.jsx";
 import {connect} from "react-redux";
 
 

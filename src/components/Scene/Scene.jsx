@@ -4,19 +4,15 @@ import PropTypes from "prop-types";
 
 import Icon from "@material-ui/core/Icon";
 
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
+import Card from "../Card/Card.jsx";
+import CardHeader from "../Card/CardHeader.jsx";
+import CardIcon from "../Card/CardIcon.jsx";
 
-import Sensor from "components/Scene/Sensor.jsx";
+import Sensor from "../Scene/Sensor.jsx";
 
 class Scene extends React.Component {
-
   render() {
-    const {
-      classes,
-      scene
-    } = this.props;
+    const {classes, scene} = this.props;
     return (
         <Card>
           <CardHeader color="success" stats icon>
@@ -26,9 +22,9 @@ class Scene extends React.Component {
             <p className={classes.cardCategory}>{scene.type.name}</p>
             <h3 className={classes.cardTitle}>{scene.name}</h3>
           </CardHeader>
-          {
-            scene.type.type === "SENSOR" ? <Sensor classes={classes} scene={scene}/> : null
-          }
+          {scene.type.type === "SENSOR" ? (
+              <Sensor classes={classes} scene={scene}/>
+          ) : null}
         </Card>
     );
   }
@@ -36,7 +32,7 @@ class Scene extends React.Component {
 
 Scene.propTypes = {
   classes: PropTypes.object.isRequired,
-  scene: PropTypes.object.isRequired,
+  scene: PropTypes.object.isRequired
 };
 
 export default Scene;

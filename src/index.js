@@ -7,7 +7,7 @@ import Admin from "layouts/Admin.jsx";
 
 import "assets/css/material-dashboard-react.css?v=1.6.0";
 import {Provider} from "react-redux";
-import store from 'store';
+import store from "store";
 
 const hist = createBrowserHistory();
 
