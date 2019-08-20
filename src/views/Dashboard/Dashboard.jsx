@@ -30,9 +30,9 @@ import CardFooter from "components/Card/CardFooter.jsx";
 // Residence module
 import Residence from "components/Residence/Residence.jsx";
 
-import { bugs, server, website } from "variables/general.jsx";
+import {bugs, server, website} from "variables/general.jsx";
 
-import { completedTasksChart, dailySalesChart, emailsSubscriptionChart } from "variables/charts.jsx";
+import {completedTasksChart, dailySalesChart, emailsSubscriptionChart} from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
     this.getResidences = this.getResidences.bind(this);
   }
 
-  componentWillMount(): void {
+    componentDidMount() {
     if (!this.getResidences()) {
       this.setState({
         interval: setInterval(this.getResidences, 100)

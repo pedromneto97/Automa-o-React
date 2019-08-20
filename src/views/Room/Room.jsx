@@ -36,7 +36,7 @@ class Room extends React.Component {
     this.getScenes = this.getScenes.bind(this);
   }
 
-  componentWillMount(): void {
+  componentDidMount(): void {
     if (!this.getScenes()) {
       this.setState({
         interval: setInterval(this.getScenes, 100)

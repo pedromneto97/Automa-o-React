@@ -35,13 +35,15 @@ class Residence extends React.Component {
         this.getRooms = this.getRooms.bind(this);
     }
 
-  componentWillMount(): void {
-    if (!this.getRooms()) {
-        this.setState({
-          interval: setInterval(this.getRooms, 100)
-        });
+
+    componentDidMount() {
+        if (!this.getRooms()) {
+            this.setState({
+                interval: setInterval(this.getRooms, 100)
+            });
+        }
     }
-    }
+
 
     componentWillUnmount(): void {
         if (this.state.interval !== null) {

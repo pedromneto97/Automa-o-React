@@ -55,7 +55,7 @@ class EditResidence extends React.Component {
     };
   }
 
-  componentWillMount(): void {
+  componentDidMount(): void {
     if (!this.getResidence()) {
       this.setState({
         interval: setInterval(this.getResidence, 100)
