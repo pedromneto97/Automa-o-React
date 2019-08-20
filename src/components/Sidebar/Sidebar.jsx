@@ -22,25 +22,20 @@ import PropTypes from "prop-types";
 import {NavLink} from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Icon from "@material-ui/core/Icon";
+import {Drawer, Hidden, Icon, List, ListItem, ListItemText} from "@material-ui/core";
 // core components
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.jsx";
 
 import sidebarStyle from "assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
 import Link from "@material-ui/core/Link";
 
-const Sidebar = ({ ...props }) => {
+const Sidebar = ({...props}) => {
     // verifies if routeName is the one active (in browser input)
     function activeRoute(routeName) {
         return window.location.href.indexOf(routeName) > -1 ? true : false;
     }
 
-    const { classes, color, logo, image, logoText, routes } = props;
+    const {classes, color, logo, image, logoText, routes} = props;
     let links = (
         <List className={classes.list}>
             {routes.map((prop, key) => {
@@ -118,7 +113,7 @@ const Sidebar = ({ ...props }) => {
                     {image !== undefined ? (
                         <div
                             className={classes.background}
-                            style={{ backgroundImage: "url(" + image + ")" }}
+                            style={{backgroundImage: "url(" + image + ")"}}
                         />
                     ) : null}
                 </Drawer>
@@ -137,7 +132,7 @@ const Sidebar = ({ ...props }) => {
                     {image !== undefined ? (
                         <div
                             className={classes.background}
-                            style={{ backgroundImage: "url(" + image + ")" }}
+                            style={{backgroundImage: "url(" + image + ")"}}
                         />
                     ) : null}
                 </Drawer>

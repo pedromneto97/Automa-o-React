@@ -9,6 +9,8 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Room from "components/Room/Room.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import {connect} from "react-redux";
+import {add_residence} from "../../store/actions";
 
 function RoomsList(props) {
     const {
@@ -29,7 +31,7 @@ class Residence extends React.Component {
             residence: {
                 rooms: []
             },
-          alias: props.match.params.alias,
+            alias: props.match.params.alias,
             interval: null
         };
         this.getRooms = this.getRooms.bind(this);
@@ -53,13 +55,13 @@ class Residence extends React.Component {
 
     getRooms() {
         if (this.props.session) {
-          this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.alias])
+            this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.alias])
                 .then(function (res) {
                     res = JSON.parse(res);
                     this.setState({
                         residence: res ? res : {rooms: []}
                     });
-                  this.props.setResidence(this.state.residence);
+                    this.props.add_residence(this.state.residence);
                 }.bind(this))
                 .catch(function (error) {
                     console.error(error);
@@ -68,9 +70,9 @@ class Residence extends React.Component {
             this.setState({
                 interval: null
             });
-          return true;
+            return true;
         }
-      return false;
+        return false;
     }
 
     render() {
@@ -90,4 +92,12 @@ Residence.propTypes = {
     connection: PropTypes.object
 };
 
-export default withStyles(dashboardStyle)(Residence);
+const mapDispatchToProps = dispatch => {
+    console.log(dispatch);
+    return {
+        add_residence: residence =>
+            dispatch(add_residence(residence))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(withStyles(dashboardStyle)(Residence));

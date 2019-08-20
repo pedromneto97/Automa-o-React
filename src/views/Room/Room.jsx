@@ -11,81 +11,87 @@ import Scene from "components/Scene/Scene.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 function ScenesList(props) {
-  const {
-    scenes,
-    classes,
-    session
-  } = props;
-  return (scenes.map((scene) =>
-    <GridItem xs={12} sm={6} md={3} key={scene._id.$oid}>
-      <Scene classes={classes} scene={scene} session={session}/>
-    </GridItem>
-  ));
+    const {
+        scenes,
+        classes,
+        session
+    } = props;
+    return (scenes.map((scene) =>
+        <GridItem xs={12} sm={6} md={3} key={scene._id.$oid}>
+            <Scene classes={classes} scene={scene} session={session}/>
+        </GridItem>
+    ));
 }
 
 class Room extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      room: {
-        scenes: []
-      },
-      alias: props.match.params.alias,
-      interval: null
-    };
-    this.getScenes = this.getScenes.bind(this);
-  }
-
-  componentDidMount(): void {
-    if (!this.getScenes()) {
-      this.setState({
-        interval: setInterval(this.getScenes, 100)
-      });
+    constructor(props) {
+        super(props);
+        this.state = {
+            room: {
+                scenes: []
+            },
+            alias: props.match.params.alias,
+            interval: null
+        };
+        this.getScenes = this.getScenes.bind(this);
     }
-  }
 
-  componentWillUnmount(): void {
-    if (this.state.interval !== null) {
-      clearInterval(this.state.interval);
+    componentDidMount(): void {
+        if (!this.getScenes()) {
+            this.setState({
+                interval: setInterval(this.getScenes, 100)
+            });
+        }
     }
-  }
 
-  getScenes() {
-    if (this.props.session) {
-      this.props.session.call("com.herokuapp.crossbar-pedro.room.alias", [this.state.alias])
-        .then(function(res) {
-          res = JSON.parse(res);
-          this.setState({
-            room: res ? res : { scenes: [] }
-          });
-        }.bind(this))
-        .catch(function(error) {
-          console.error(error);
-        });
-      clearInterval(this.state.interval);
-      this.setState({
-        interval: null
-      });
-      return true;
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevProps.match.params.alias !== this.props.match.params.alias) {
+            this.getScenes();
+        }
     }
-    return false;
-  }
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
-        <GridContainer>
-          <ScenesList classes={classes} scenes={this.state.room.scenes} session={this.props.session}/>
-        </GridContainer>
-      </div>
-    );
-  }
+    componentWillUnmount(): void {
+        if (this.state.interval !== null) {
+            clearInterval(this.state.interval);
+        }
+    }
+
+    getScenes() {
+        if (this.props.session) {
+            this.props.session.call("com.herokuapp.crossbar-pedro.room.alias", [this.props.match.params.alias])
+                .then(function (res) {
+                    res = JSON.parse(res);
+                    this.setState({
+                        room: res ? res : {scenes: []}
+                    });
+                }.bind(this))
+                .catch(function (error) {
+                    console.error(error);
+                });
+            clearInterval(this.state.interval);
+            this.setState({
+                interval: null
+            });
+            return true;
+        }
+        return false;
+    }
+
+    render() {
+        const {classes} = this.props;
+        return (
+            <div>
+                <GridContainer>
+                    <ScenesList classes={classes} scenes={this.state.room.scenes} session={this.props.session}/>
+                </GridContainer>
+            </div>
+        );
+    }
 }
 
 Room.propTypes = {
-  classes: PropTypes.object.isRequired,
-  session: PropTypes.object
+    classes: PropTypes.object.isRequired,
+    session: PropTypes.object
 };
 
 export default withStyles(dashboardStyle)(Room);
