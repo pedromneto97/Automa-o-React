@@ -34,16 +34,21 @@ class Residence extends React.Component {
 
   getResidence = () => {
     if (this.props.session) {
-      this.props.session.call("com.herokuapp.crossbar-pedro.residence.alias", [this.state.alias])
-          .then(function (res) {
-              res = JSON.parse(res);
-              this.setState({
-                  residence: res ? res : null
-              });
-          }.bind(this))
-          .catch(function (error) {
-              console.error(error);
-          });
+        this.props.session
+            .call("com.herokuapp.crossbar-pedro.residence.alias", [
+                this.state.alias
+            ])
+            .then(
+                function (res) {
+                    res = JSON.parse(res);
+                    this.setState({
+                        residence: res ? res : null
+                    });
+                }.bind(this)
+            )
+            .catch(function (error) {
+                console.error(error);
+            });
       clearInterval(this.state.interval);
       this.setState({
         interval: null
@@ -61,11 +66,14 @@ class Residence extends React.Component {
                 <ResidenceInfo classes={classes} residence={this.state.residence}/>
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>
-                <RoomList classes={classes} rooms={this.state.residence ? this.state.residence.rooms : []}/>
+                <RoomList
+                    classes={classes}
+                    rooms={this.state.residence ? this.state.residence.rooms : []}
+                />
             </GridItem>
         </GridContainer>
     );
-  };
+  }
 }
 
 const mapStateToProps = state => {

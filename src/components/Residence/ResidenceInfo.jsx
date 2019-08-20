@@ -9,12 +9,11 @@ import Person from "@material-ui/icons/Person";
 import Card from "../Card/Card.jsx";
 import CardHeader from "../Card/CardHeader.jsx";
 import CardBody from "../Card/CardBody.jsx";
-
-import Button from "../CustomButtons/Button.jsx";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import tasksStyle from "../../assets/jss/material-dashboard-react/components/tasksStyle.jsx";
+import IconButton from "@material-ui/core/IconButton";
 
 class ResidenceInfo extends React.Component {
   render() {
@@ -62,9 +61,9 @@ class ResidenceInfo extends React.Component {
                   placement="top"
                   classes={{tooltip: classes.tooltip}}
               >
-                <Button justIcon color="info" size="sm" className="pull-right">
+                <IconButton color="primary" size="small" className="pull-right">
                   <Edit/>
-                </Button>
+                </IconButton>
               </Tooltip>
             </Link>
             <Link to={"/admin/residence/users/" + residence.alias}>
@@ -74,9 +73,9 @@ class ResidenceInfo extends React.Component {
                   placement="top"
                   classes={{tooltip: classes.tooltip}}
               >
-                <Button justIcon color="info" size="sm" className="pull-right">
+                <IconButton color="primary" size="small" className="pull-right">
                   <Person/>
-                </Button>
+                </IconButton>
               </Tooltip>
             </Link>
           </CardBody>
@@ -97,7 +96,7 @@ class ResidenceInfo extends React.Component {
 
 ResidenceInfo.propTypes = {
   classes: PropTypes.object.isRequired,
-  residence: PropTypes.object.isRequired
+  residence: PropTypes.object
 };
 
 let styles = {

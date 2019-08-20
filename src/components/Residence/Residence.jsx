@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
 import LocationCity from "@material-ui/icons/LocationCity";
 import Settings from "@material-ui/icons/Settings";
 
@@ -41,15 +42,13 @@ class Residence extends React.Component {
                             placement="top"
                             classes={{tooltip: classes.tooltip}}
                         >
-                            <Button
-                                justIcon
-                                round
-                                color="secondary"
-                                size="sm"
+                            <IconButton
+                                color="default"
+                                size={"small"}
                                 className="pull-right"
                             >
                                 <Settings/>
-                            </Button>
+                            </IconButton>
                         </Tooltip>
                     </Link>
                 </CardBody>

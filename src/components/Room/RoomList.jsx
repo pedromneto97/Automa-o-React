@@ -8,24 +8,23 @@ import Table from "../Table/Table.jsx";
 import Card from "../Card/Card.jsx";
 import CardHeader from "../Card/CardHeader.jsx";
 import CardBody from "../Card/CardBody.jsx";
-
-import Button from "../CustomButtons/Button.jsx";
 import Tooltip from "@material-ui/core/Tooltip";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
 import withStyles from "@material-ui/core/styles/withStyles";
 import tasksStyle from "assets/jss/material-dashboard-react/components/tasksStyle.jsx";
+import IconButton from "@material-ui/core/IconButton";
 
 class RoomList extends React.Component {
   rooms_table = () => {
-    let r = [];
+      const r = [];
       this.props.rooms.map(prop =>
           r.push([
               prop.name,
               prop.alias,
               prop.icon,
               prop.type.type,
-              prop.scenes.length,
+              prop.scenes.length.toString(),
               <Link to={"/admin/room/info/" + prop.alias}>
                   <Tooltip
                       id="tooltip-top"
@@ -33,9 +32,9 @@ class RoomList extends React.Component {
                       placement="top"
                       classes={{tooltip: this.props.classes.tooltip}}
                   >
-                      <Button justIcon color="info" size="sm" className="pull-right">
+                      <IconButton color="primary" size="small" className="pull-right">
                           <Edit/>
-                      </Button>
+                      </IconButton>
                   </Tooltip>
               </Link>,
               <Tooltip
@@ -44,12 +43,13 @@ class RoomList extends React.Component {
                   placement="top"
                   classes={{tooltip: this.props.classes.tooltip}}
               >
-                  <Button justIcon color="danger" size="sm" className="pull-right">
+                  <IconButton color="secondary" size="small" className="pull-right">
                       <Delete/>
-                  </Button>
+                  </IconButton>
               </Tooltip>
           ])
       );
+      console.log(r[0]);
     return r;
   };
 
