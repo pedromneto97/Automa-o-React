@@ -12,10 +12,10 @@ import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardS
 import {connect} from "react-redux";
 
 function ScenesList(props) {
-  const {scenes, classes, session} = props;
+    const {scenes, classes, session} = props;
   return scenes.map(scene => (
       <GridItem xs={12} sm={6} md={3} key={scene._id.$oid}>
-        <Scene classes={classes} scene={scene} session={session}/>
+          <Scene classes={classes} scene={scene} session={session}/>
       </GridItem>
   ));
 }
@@ -61,18 +61,18 @@ class Room extends React.Component {
     if (this.props.session) {
       this.props.session
           .call("com.herokuapp.crossbar-pedro.room.alias", [
-            this.props.match.params.alias
+              this.props.match.params.alias
           ])
           .then(
               function (res) {
-                res = JSON.parse(res);
-                this.setState({
-                  room: res ? res : {scenes: []}
-                });
+                  res = JSON.parse(res);
+                  this.setState({
+                      room: res ? res : {scenes: []}
+                  });
               }.bind(this)
           )
           .catch(function (error) {
-            console.error(error);
+              console.error(error);
           });
       clearInterval(this.state.interval);
       this.setState({
@@ -84,16 +84,16 @@ class Room extends React.Component {
   }
 
   render() {
-    const {classes} = this.props;
+      const {classes} = this.props;
     return (
         <div>
-          <GridContainer>
-            <ScenesList
-                classes={classes}
-                scenes={this.state.room.scenes}
-                session={this.props.session}
-            />
-          </GridContainer>
+            <GridContainer>
+                <ScenesList
+                    classes={classes}
+                    scenes={this.state.room.scenes}
+                    session={this.props.session}
+                />
+            </GridContainer>
         </div>
     );
   }
@@ -105,7 +105,7 @@ Room.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const {session} = state;
+    const {session} = state;
   return {
     session
   };

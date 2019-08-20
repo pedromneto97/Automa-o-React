@@ -7,7 +7,6 @@ import ResidenceInfo from "../../components/Residence/ResidenceInfo.jsx";
 import RoomList from "../../components/Room/RoomList.jsx";
 import {connect} from "react-redux";
 
-
 class Residence extends React.Component {
   constructor(props) {
     super(props);

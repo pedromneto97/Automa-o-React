@@ -42,11 +42,7 @@ class Residence extends React.Component {
                             placement="top"
                             classes={{tooltip: classes.tooltip}}
                         >
-                            <IconButton
-                                color="default"
-                                size={"small"}
-                                className="pull-right"
-                            >
+                            <IconButton color="default" size={"small"} className="pull-right">
                                 <Settings/>
                             </IconButton>
                         </Tooltip>

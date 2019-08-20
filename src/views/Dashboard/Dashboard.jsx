@@ -38,14 +38,11 @@ import dashboardStyle from "../../assets/jss/material-dashboard-react/views/dash
 import {connect} from "react-redux";
 
 function ResidenceList(props) {
-  const {
-    residences,
-    classes
-  } = props;
-  return (residences.map((residence) =>
-      <GridItem xs={12} sm={6} md={3} key={residence._id.$oid}>
-          <Residence classes={classes} residence={residence}/>
-      </GridItem>
+    const {residences, classes} = props;
+    return residences.map(residence => (
+        <GridItem xs={12} sm={6} md={3} key={residence._id.$oid}>
+            <Residence classes={classes} residence={residence}/>
+        </GridItem>
   ));
 }
 
@@ -75,15 +72,20 @@ class Dashboard extends React.Component {
 
   getResidences() {
     if (this.props.session) {
-      this.props.session.call("com.herokuapp.crossbar-pedro.user.residences", ["5c7f1130dd27452be8f16adc"])
-          .then(function (res) {
-              this.setState({
-                  residences: JSON.parse(res)
-              });
-          }.bind(this))
-          .catch(function (error) {
-              console.error(error);
-          });
+        this.props.session
+            .call("com.herokuapp.crossbar-pedro.user.residences", [
+                "5c7f1130dd27452be8f16adc"
+            ])
+            .then(
+                function (res) {
+                    this.setState({
+                        residences: JSON.parse(res)
+                    });
+                }.bind(this)
+            )
+            .catch(function (error) {
+                console.error(error);
+            });
       clearInterval(this.state.interval);
       this.setState({
         interval: null

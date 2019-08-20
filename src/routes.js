@@ -7,7 +7,6 @@ import ResidenceInfo from "views/Residence/ResidenceInfo.jsx";
 import ResidenceEdit from "views/Residence/ResidenceEdit.jsx";
 import Room from "views/Room/Room.jsx";
 
-
 const dashboardRoutes = [
   {
     path: "/dashboard",

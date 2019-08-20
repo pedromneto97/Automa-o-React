@@ -18,7 +18,7 @@ import headerStyle from "assets/jss/material-dashboard-react/components/headerSt
 function Header({...props}) {
     function makeBrand() {
         let name = "";
-        props.routes.map((prop) => {
+        props.routes.map(prop => {
             const alias = prop.path.search(":");
             if (alias > -1) {
                 const ind = props.location.pathname.lastIndexOf("/");
