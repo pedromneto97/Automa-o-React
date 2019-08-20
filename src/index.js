@@ -6,15 +6,19 @@ import {Redirect, Route, Router, Switch} from "react-router-dom";
 import Admin from "layouts/Admin.jsx";
 
 import "assets/css/material-dashboard-react.css?v=1.6.0";
+import {Provider} from "react-redux";
+import store from 'store';
 
 const hist = createBrowserHistory();
 
 ReactDOM.render(
-    <Router history={hist}>
-        <Switch>
-            <Route path="/admin" component={Admin}/>
-            <Redirect from="/" to="/admin/dashboard"/>
-        </Switch>
-    </Router>,
+    <Provider store={store}>
+        <Router history={hist}>
+            <Switch>
+                <Route path="/admin" component={Admin}/>
+                <Redirect from="/" to="/admin/dashboard"/>
+            </Switch>
+        </Router>
+    </Provider>,
     document.getElementById("root")
 );
