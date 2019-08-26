@@ -32,7 +32,7 @@ import routes from "routes.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 // Crossbar
-import {Connection} from "autobahn";
+import {auth_cra, Connection} from "autobahn";
 
 import RoomPage from "views/Room/Room.jsx";
 import ResidencePage from "views/Residence/Residence.jsx";
@@ -69,7 +69,22 @@ class Dashboard extends React.Component {
         }
         this.mainPanel = React.createRef();
 
+
         ws_uri["realm"] = "realm1";
+        ws_uri["authmethods"] = ["wampcra"];
+        ws_uri["authid"] = "pedromneto97";
+        ws_uri["onchallenge"] = function (session, method, extra) {
+            if (method === "wampcra") {
+                let key;
+                if ("salt" in extra) {
+                    key = auth_cra.derive_key("007009", extra.salt, extra.iterations, extra.keylength);
+                } else {
+                    key = "007009";
+                }
+                return auth_cra.sign(key, extra.challenge);
+            }
+        };
+
         this.state = {
             image: image,
             color: "blue",
