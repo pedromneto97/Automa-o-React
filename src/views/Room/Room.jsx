@@ -105,7 +105,7 @@ Room.propTypes = {
 };
 
 const mapStateToProps = state => {
-    const {session} = state;
+    const {session} = state.crossbar;
   return {
     session
   };

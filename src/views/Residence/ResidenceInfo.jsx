@@ -76,7 +76,7 @@ class Residence extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const {session} = state;
+    const {session} = state.crossbar;
     return {
         session
     };

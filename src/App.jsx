@@ -29,9 +29,10 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
+    const {session, connection} = state.crossbar;
     return {
-        connection: state.crossbar.connection,
-        session: state.crossbar.session
+        connection,
+        session
     };
 };
 export default connect(mapStateToProps)(App);
