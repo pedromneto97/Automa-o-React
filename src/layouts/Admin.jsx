@@ -31,9 +31,6 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import routes from "routes.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
-// Crossbar
-import {auth_cra, Connection} from "autobahn";
-
 import RoomPage from "views/Room/Room.jsx";
 import ResidencePage from "views/Residence/Residence.jsx";
 
@@ -41,49 +38,13 @@ import image from "assets/img/caecomp.jpg";
 import logo from "assets/img/reactlogo.png";
 
 import {connect} from "react-redux";
-import {add_session} from "../store/actions";
 
 let ps;
 
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        let ws_uri;
-        if (document.location.hostname === "localhost") {
-            ws_uri = {
-                transports: [
-                    {
-                        type: "websocket",
-                        url: "ws://crossbar-pedro.herokuapp.com/ws"
-                    }
-                ]
-            };
-        } else {
-            ws_uri = {
-                url:
-                    (document.location.protocol === "http:" ? "ws:" : "wss:") +
-                    "//" +
-                    document.location.host +
-                    "/ws"
-            };
-        }
         this.mainPanel = React.createRef();
-
-
-        ws_uri["realm"] = "realm1";
-        ws_uri["authmethods"] = ["wampcra"];
-        ws_uri["authid"] = "pedromneto97";
-        ws_uri["onchallenge"] = function (session, method, extra) {
-            if (method === "wampcra") {
-                let key;
-                if ("salt" in extra) {
-                    key = auth_cra.derive_key("007009", extra.salt, extra.iterations, extra.keylength);
-                } else {
-                    key = "007009";
-                }
-                return auth_cra.sign(key, extra.challenge);
-            }
-        };
 
         this.state = {
             image: image,
@@ -91,18 +52,9 @@ class Dashboard extends React.Component {
             hasImage: true,
             fixedClasses: "dropdown show",
             mobileOpen: false,
-            connection: new Connection(ws_uri),
             routes: routes,
             residence: this.props.residence
         };
-        this.state.connection.onopen = function (session, details) {
-            console.info("Aberto");
-            this.props.add_session(session);
-            this.props.crossbar.forEach(item => {
-                session.subscribe(item.topic, item.callback);
-            });
-        }.bind(this);
-        this.state.connection.open();
     }
 
     setResidence = residence => {
@@ -239,18 +191,8 @@ Dashboard.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        crossbar: state.crossbar,
         residence: state.residence
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        add_session: session => dispatch(add_session(session))
-    };
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withStyles(dashboardStyle)(Dashboard));
+export default connect(mapStateToProps)(withStyles(dashboardStyle)(Dashboard));
