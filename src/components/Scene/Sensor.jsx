@@ -15,13 +15,11 @@ class Sensor extends React.Component {
         this.state = {
             last_measurement: null,
             topic:
-                "com.herokuapp.crossbar-pedro.measurement." +
-                props.scene._id.$oid +
-                ".create",
+                props.uri + ".measurement." + props.scene._id.$oid + ".create",
             subscription: null
         };
         props.session
-            .call("com.herokuapp.crossbar-pedro.measurement.last", [
+            .call(props.uri + ".measurement.last", [
                 props.scene._id.$oid
             ])
             .then(this.set_measurement)
@@ -112,9 +110,10 @@ Sensor.propTypes = {
     session: PropTypes.object
 };
 const mapStateToProps = state => {
-    const {session} = state.crossbar;
+    const {session, uri} = state.crossbar;
     return {
-        session
+        session,
+        uri
     };
 };
 

@@ -60,9 +60,7 @@ class Room extends React.Component {
   getScenes() {
     if (this.props.session) {
       this.props.session
-          .call("com.herokuapp.crossbar-pedro.room.alias", [
-              this.props.match.params.alias
-          ])
+          .call(this.props.uri + ".room.alias", [this.props.match.params.alias])
           .then(
               function (res) {
                   res = JSON.parse(res);
@@ -105,9 +103,10 @@ Room.propTypes = {
 };
 
 const mapStateToProps = state => {
-    const {session} = state.crossbar;
+    const {session, uri} = state.crossbar;
   return {
-    session
+      session,
+      uri
   };
 };
 export default connect(mapStateToProps)(withStyles(dashboardStyle)(Room));

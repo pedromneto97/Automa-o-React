@@ -34,9 +34,7 @@ class Residence extends React.Component {
   getResidence = () => {
     if (this.props.session) {
         this.props.session
-            .call("com.herokuapp.crossbar-pedro.residence.alias", [
-                this.state.alias
-            ])
+            .call(this.props.uri + ".residence.alias", [this.state.alias])
             .then(
                 function (res) {
                     res = JSON.parse(res);
@@ -76,9 +74,10 @@ class Residence extends React.Component {
 }
 
 const mapStateToProps = state => {
-    const {session} = state.crossbar;
+    const {session, uri} = state.crossbar;
     return {
-        session
+        session,
+        uri
     };
 };
 export default connect(mapStateToProps)(Residence);

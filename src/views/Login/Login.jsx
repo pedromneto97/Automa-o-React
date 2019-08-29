@@ -30,7 +30,8 @@ const styles = theme => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+            .spacing.unit * 3}px`
     },
     avatar: {
         margin: theme.spacing.unit,
@@ -50,11 +51,11 @@ class SignIn extends React.Component {
         super(props);
         this.state = {
             username: null,
-            password: null,
+            password: null
         };
     }
 
-    onSubmit = (event) => {
+    onSubmit = event => {
         event.preventDefault();
         if (!this.state.username || !this.state.password) {
             return;
@@ -62,7 +63,7 @@ class SignIn extends React.Component {
         this.props.open_connection(this.state.username, this.state.password);
     };
 
-    onChange = (event) => {
+    onChange = event => {
         if (event.target.name === "username") {
             this.setState({
                 username: event.target.value
@@ -89,13 +90,23 @@ class SignIn extends React.Component {
                     <form className={classes.form} onSubmit={this.onSubmit}>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="username">Username</InputLabel>
-                            <Input id="username" name="username" autoComplete="username" autoFocus
-                                   onChange={this.onChange}/>
+                            <Input
+                                id="username"
+                                name="username"
+                                autoComplete="username"
+                                autoFocus
+                                onChange={this.onChange}
+                            />
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input name="password" type="password" id="password" autoComplete="current-password"
-                                   onChange={this.onChange}/>
+                            <Input
+                                name="password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={this.onChange}
+                            />
                         </FormControl>
                         <Button
                             type="submit"
@@ -123,7 +134,11 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        open_connection: (username, password) => dispatch(open_connection(username, password))
+        open_connection: (username, password) =>
+            dispatch(open_connection(username, password))
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SignIn));
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(styles)(SignIn));

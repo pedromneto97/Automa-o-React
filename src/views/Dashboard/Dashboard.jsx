@@ -73,7 +73,7 @@ class Dashboard extends React.Component {
     getResidences() {
         if (this.props.session) {
             this.props.session
-                .call("com.herokuapp.crossbar-pedro.user.residences", [])
+                .call(this.props.uri + ".user.residences", [])
                 .then(
                     function (res) {
                         this.setState({
@@ -305,9 +305,10 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = state => {
-    const {session} = state.crossbar;
+    const {session, uri} = state.crossbar;
     return {
-        session
+        session,
+        uri
     };
 };
 
